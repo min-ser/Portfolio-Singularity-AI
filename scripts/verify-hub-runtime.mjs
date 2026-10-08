@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const scene=readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+const hub=scene.slice(scene.indexOf('function Hub({'),scene.indexOf('\ntype Highway=',scene.indexOf('function Hub({')));
+const facility=scene.slice(scene.indexOf('function HubInteriorFacility('),scene.indexOf('function SaturnPlanetRings('));
+const rings=scene.slice(scene.indexOf('function SaturnPlanetRings('),scene.indexOf('function Hub({'));
+assert.equal(pkg.version,'0.0.126');
+assert.ok(!/<(?:cylinderGeometry|boxGeometry|sphereGeometry|torusGeometry)[^>]*\brotation=/.test(scene));
+assert.ok(hub.includes("quality==='HIGH'&&[-1,1]"));
+assert.ok(!hub.includes('<HubMicroTraffic'));
+assert.ok(!hub.includes('<HubSatellites'));
+console.log('PASS: valid geometry transforms and bounded hub detail');

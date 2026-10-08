@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const scene=readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+const hub=scene.slice(scene.indexOf('function Hub({'),scene.indexOf('\ntype Highway=',scene.indexOf('function Hub({')));
+const facility=scene.slice(scene.indexOf('function HubInteriorFacility('),scene.indexOf('function SaturnPlanetRings('));
+const rings=scene.slice(scene.indexOf('function SaturnPlanetRings('),scene.indexOf('function Hub({'));
+assert.equal(pkg.version,'0.0.126');
+assert.match(hub,/transparent opacity=\{\.045\} depthWrite=\{false\}/);
+assert.match(hub,/transparent opacity=\{\.035\} depthWrite=\{false\}/);
+assert.ok(!hub.includes('depthWrite={true}'));
+assert.ok(!hub.includes('<GitBlogEmblem'));
+assert.ok(hub.includes('<HubInteriorFacility'));
+console.log('PASS: transparent front/back shell and enclosed facilities');

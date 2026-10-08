@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const source=fs.readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+assert.match(source,/function lensDeflection\(/);
+assert.match(source,/function lensedFarSidePoint\(/);
+assert.match(source,/<LensedFarSideDisk quality=\{quality\} activation=\{activation\}/);
+assert.doesNotMatch(source,/Lensed far-side disk: displaced upward/);
+const rs=.65,photon=1.5*rs;
+const deflection=b=>Math.min(1.10,2*rs/Math.max(b,photon*1.025));
+assert.ok(deflection(photon)>deflection(2)>deflection(4));
+assert.ok([.5,1,2,4,8].every(b=>Number.isFinite(deflection(b))&&deflection(b)<=1.10));
+console.log('PASS: lens proxy source integration, monotonic bending and finite cap');

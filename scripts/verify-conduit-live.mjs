@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const s=fs.readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+assert.match(s,/uniform vec3 uHubOffset/);
+assert.match(s,/p\+=uHubOffset\*envelope/);
+assert.match(s,/aRiverCenter\+\(position-aRiverCenter\)\*radiusScale/);
+assert.match(s,/currentNodePosition\(stream\.hubId\)/);
+assert.match(s,/const progress=Math\.pow\(q,1\.65\)/);
+assert.match(s,/visibleInfallPosition\(h,progress,t\)/);
+assert.match(s,/visibleInfallPosition\(h,back,t\)/);
+assert.match(s,/quality==='HIGH'\?9:quality==='BALANCED'\?6:4/);
+console.log('PASS verify-conduit-live: live hub anchor, inward flow and shared sphere/trail path');

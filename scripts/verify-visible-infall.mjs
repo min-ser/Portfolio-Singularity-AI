@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const source=fs.readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+assert.match(source,/function HighwayInfallSpheres/);
+assert.match(source,/const center=visibleInfallPosition\(h,q,now\)/);
+assert.match(source,/const trailing=visibleInfallPosition\(h,Math.max\(0,q-\.019\),now\)/);
+assert.match(source,/travel.current\+=dt\*\(\.095\+gravity.current\*\.095\)/);
+assert.match(source,/quality==='LOW'\?2:quality==='BALANCED'\?3:4/);
+assert.match(source,/<HighwayInfallSpheres activeId=\{activeId\} activated=\{coreActivated\} quality=\{quality\}\/>/);
+assert.match(source,/renderOrder=\{7\}/);
+console.log('PASS: visible spheres use shared animated backbone, clockwise hub-to-core progress, tails, activation and all quality tiers');

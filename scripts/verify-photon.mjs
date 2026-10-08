@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const src=fs.readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+assert.match(src,/PHOTON_EMISSION_FRAGMENT/);
+assert.match(src,/function PhotonEmission\(/);
+assert.match(src,/float beaming=pow\(/);
+assert.match(src,/float core=exp\(/);
+assert.match(src,/float bend=/);
+assert.match(src,/<PhotonEmission activation=\{activation\}/);
+assert.doesNotMatch(src,/<mesh ref=\{halo\}/);
+console.log('PASS: procedural photon emission, angular Doppler asymmetry, no uniform halo torus');

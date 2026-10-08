@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';
+const s=fs.readFileSync('components/WebGLScene.tsx','utf8');
+const vortex=s.split('function RemoteSpiralVortex(')[1].split('function OrbitalSpaceStation(')[0];
+const station=s.split('function OrbitalSpaceStation(')[1].split('function DynamicStarfield(')[0];
+assert.ok(!vortex.includes('disk.current.rotation.z='),'No rigid-body spinning disk');
+assert.ok(vortex.includes('a.needsUpdate=true'),'Animated matter positions');
+assert.ok(vortex.includes('locate(.872,.167,9.9,pos)'));
+assert.ok(station.includes('locate(.862,.695,8.6,pos)'));
+assert.ok(station.includes('habitat.current.rotation.z=t*.045'));
+assert.ok(station.includes('spokes=quality'));
+assert.ok(station.includes('[-1,1].map(side='));
+console.log('Mini black hole single disk and monumental station structure: PASS');

@@ -1,0 +1,24 @@
+# Dependencies / Next.js build
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Local environment (keep example)
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs / temporary files
+*.log
+npm-debug.log*
+coverage/
+.tmp/

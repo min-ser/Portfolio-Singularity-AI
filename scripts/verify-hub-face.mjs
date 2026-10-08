@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const scene=readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+const hub=scene.slice(scene.indexOf('function Hub({'),scene.indexOf('\ntype Highway=',scene.indexOf('function Hub({')));
+const facility=scene.slice(scene.indexOf('function HubInteriorFacility('),scene.indexOf('function SaturnPlanetRings('));
+const rings=scene.slice(scene.indexOf('function SaturnPlanetRings('),scene.indexOf('function Hub({'));
+assert.equal(pkg.version,'0.0.126');
+assert.match(hub,/sphereGeometry args=\{\[\.70/);
+assert.match(hub,/transparent opacity=\{\.045\} depthWrite=\{false\}/);
+assert.ok(!hub.includes('<HubIdentityBeacon'));
+console.log('PASS: clear sphere and no planar emblem in render path');

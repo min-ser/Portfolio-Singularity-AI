@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const source=fs.readFileSync('components/WebGLScene.tsx','utf8');
+const ui=fs.readFileSync('components/NetworkScene.tsx','utf8');
+assert.match(ui,/setCoreActivated\(v=>!v\)/);
+assert.match(source,/<HubGravityInfall quality=\{quality\} activated=\{coreActivated\}/);
+assert.match(source,/phaseClock\.current\+=dt\*\(1\+gravity\.current\*2\.3\)/);
+assert.match(source,/Math\.min\(delta,\.06\)/);
+assert.match(source,/<GravityActivationFront activated=\{activated\} quality=\{quality\}/);
+for(const level of ['LOW','BALANCED','HIGH'])assert.match(source,new RegExp(level));
+console.log('PASS activation: UI toggle, coupled hub infall, bounded timestep, pulse and quality tiers');

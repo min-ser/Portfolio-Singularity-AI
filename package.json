@@ -1,0 +1,43 @@
+{
+  "name": "ai-network-portfolio",
+  "version": "0.0.126",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "validate": "node scripts/validate.mjs",
+    "verify:physics": "node scripts/verify-physics.mjs",
+    "verify:quality": "node scripts/verify-quality.mjs",
+    "verify:lensing": "node scripts/verify-lensing.mjs",
+    "verify:gas": "node scripts/verify-gas.mjs",
+    "verify:hub-infall": "node scripts/verify-hub-infall.mjs",
+    "verify:activation": "node scripts/verify-activation.mjs",
+    "verify:acceptance": "node scripts/verify-acceptance.mjs",
+    "verify:visual-fidelity": "node scripts/verify-visual-fidelity.mjs",
+    "verify:hub-clearance": "node scripts/verify-hub-clearance.mjs",
+    "verify:visible-infall": "node scripts/verify-visible-infall.mjs",
+    "verify:capture": "node scripts/verify-capture.mjs",
+    "verify:photon": "node scripts/verify-photon.mjs",
+    "verify:continuity": "node scripts/verify-continuity.mjs",
+    "verify:all": "node scripts/verify-all.mjs",
+    "verify:caustics": "node scripts/verify-caustics.mjs",
+    "verify:conduits": "node scripts/verify-conduit-alignment.mjs"
+  },
+  "dependencies": {
+    "next": "16.0.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "three": "^0.180.0",
+    "@react-three/fiber": "^9.4.0",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/postprocessing": "^3.0.4",
+    "postprocessing": "^6.37.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

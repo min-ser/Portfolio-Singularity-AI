@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const scene=readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+const hub=scene.slice(scene.indexOf('function Hub({'),scene.indexOf('\ntype Highway=',scene.indexOf('function Hub({')));
+const facility=scene.slice(scene.indexOf('function HubInteriorFacility('),scene.indexOf('function SaturnPlanetRings('));
+const rings=scene.slice(scene.indexOf('function SaturnPlanetRings('),scene.indexOf('function Hub({'));
+assert.equal(pkg.version,'0.0.126');
+for(const id of ['profile','career','projects','portfolio','github','expertise','training','archive']) assert.ok(facility.includes(`id==='${id}'`),`missing ${id} enclosed facility`);
+assert.ok(hub.includes('<HubInteriorFacility id={n.id} tone={n.tone} quality={quality}/>'));
+assert.ok(!hub.includes('<GitBlogEmblem'));
+console.log('PASS: 8 enclosed hub facilities and no foreground badge');

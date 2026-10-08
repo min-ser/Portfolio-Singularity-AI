@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const scene=readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+const hub=scene.slice(scene.indexOf('function Hub({'),scene.indexOf('\ntype Highway=',scene.indexOf('function Hub({')));
+const facility=scene.slice(scene.indexOf('function HubInteriorFacility('),scene.indexOf('function SaturnPlanetRings('));
+const rings=scene.slice(scene.indexOf('function SaturnPlanetRings('),scene.indexOf('function Hub({'));
+assert.equal(pkg.version,'0.0.126');
+assert.ok(hub.includes('<SaturnPlanetRings tone={n.tone} index={index} quality={quality}/>'));
+assert.match(rings,/ringGeometry args=/);
+assert.match(rings,/depthTest=\{true\} depthWrite=\{false\}/);
+assert.match(rings,/rotation=\{\[\.96/);
+assert.ok(!hub.includes('ringA')&&!hub.includes('ringB'));
+console.log('PASS: flat concentric Saturn rings with depth test');

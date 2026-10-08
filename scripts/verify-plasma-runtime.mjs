@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const s=fs.readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const deform=s.split('function deformRiverPoint(')[1].split('function DynamicRiver(')[0];
+assert(!/centers\s*\[|\bvertex\b/.test(deform),'deformRiverPoint must not access conduit geometry arrays');
+const conduit=s.split('function PlasmaConduits(')[1].split('function ')[0];
+assert(conduit.includes('const center=h.curve.getPoint(q);'),'center curve point must be computed');
+assert(conduit.includes('centers[vertex*3]=center.x;'),'x center attribute must be populated');
+assert(conduit.includes('centers[vertex*3+1]=center.y;'),'y center attribute must be populated');
+assert(conduit.includes('centers[vertex*3+2]=center.z;'),'z center attribute must be populated');
+console.log('PASS plasma runtime regression: no undeclared centers in deform; tube center attributes populated');

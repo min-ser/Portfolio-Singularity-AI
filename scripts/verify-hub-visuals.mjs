@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const scene=readFileSync(new URL('../components/WebGLScene.tsx',import.meta.url),'utf8');
+const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+const hub=scene.slice(scene.indexOf('function Hub({'),scene.indexOf('\ntype Highway=',scene.indexOf('function Hub({')));
+const facility=scene.slice(scene.indexOf('function HubInteriorFacility('),scene.indexOf('function SaturnPlanetRings('));
+const rings=scene.slice(scene.indexOf('function SaturnPlanetRings('),scene.indexOf('function Hub({'));
+assert.equal(pkg.version,'0.0.126');
+for(const id of ['profile','career','projects','portfolio','github','expertise','training','archive']) assert.ok(facility.includes(`id==='${id}'`));
+for(const detail of ['collar','tower','beam-left','monitor','trunk','knowledge','brim','drawer']) assert.ok(facility.includes(detail),detail);
+assert.ok(facility.includes("const detail=quality!=='LOW'"));
+console.log('PASS: eight unique dimensional silhouettes at LOW and detail tiers');
